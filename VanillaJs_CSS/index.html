@@ -45,15 +45,93 @@
     <link rel="stylesheet" href="css/style.css" />
 
 <body>
+    <!-- CSS 작명 규칙(BEM)-->
+    <!-- 단어와 단어 사이에는 하이픈(-) ex) head-container-blue 
+        __ : ~의 하위 요소 ex) head-container__head-brand
+        소문자로 쓰기
+        -- : ~의 상태를 나타낼 때 ex) head-container__head-brand--nolink
+    -->
+
     <header>
         <div class="inner">
             <div class="head-container">
-                <div class="head-brand">잔재미코딩</div>
-                <div class="head-blog">잔재미코딩 블로그</div>
+                <div class="head-brand"><a href ="http://www.fun-coding.org">잔재미코딩</a></div>
+                <div class="head-blog"><a href ="http://www.fun-coding.org/daveblog.html">잔재미코딩 블로그</a></div>
             </div>
         </div>
     </header>
-    <section></section>
+
+    <!-- 메인 이미지 섹션-->
+    <section class="main">
+        <div class="main-container">
+            <!--원래 inner -> container순서지만 이미지를 위해 container요소가 추가적으로 들어간 것-->
+            <div class="inner">
+                <div class="title-container">
+                    <div class="title">광고보다 강의에 집중합니다</div>
+                    <div class="message">
+                        전자책보다 좋은 자료와 현업의 경험을 통해<br/>
+                        검증된 온라인 강의를<br/>
+                        검증된 온라인 플랫폼에서 제공합니다<br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="inner">
+            <div class="skill-container">
+                <div class="skill">
+                    <i class="fab fa-python skill-icon python-style"></i>
+                    <div class="skill-title">
+                        <div class="skill-name">업무 자동화</div>
+                        <div class="skill-usage">크롤링/자동매매</div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <i class="far fa-chart-bar skill-icon analysis-style"></i>
+                    <div class="skill-title">
+                      <div class="skill-name">데이터 분석</div>
+                      <div class="skill-usage">데이터 분석/SQL</div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <i class="fab fa-app-store-ios skill-icon ai-style"></i>
+                    <div class="skill-title">
+                      <div class="skill-name">AI</div>
+                      <div class="skill-usage">인공지능 활용</div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <i class="fab fa-vuejs skill-icon vue-style"></i>
+                    <div class="skill-title">
+                      <div class="skill-name">풀스택</div>
+                      <div class="skill-usage">웹/앱 서비스</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="inner">
+            <div class="roadmap-container">
+                <div class="roadmap-title-container">
+                    <div class="roadmap-title">잔재미코딩 관련 블로그 및 서적</div>
+                    <div class="arrow-container">
+                        <i class="slide-prev fas fa-chevron-circle-left"></i>
+                        <i class="slide-next fas fa-chevron-circle-right"></i>
+                    </div>
+                </div>
+                <ul class="class-list">
+                    <li class="class-card">
+                        <img src="https://www.fun-coding.org/style/images/blog.jpg" alt="잔재미코딩 블로그" class="class-image">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <footer></footer>
 
     <script src="js/main.js"></script>
