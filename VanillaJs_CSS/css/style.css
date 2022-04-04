@@ -36,7 +36,8 @@ a:hover{
     width:100%;
     height: 100%;
     margin: 0 auto;
-    padding: 0 2rem
+    padding: 0 2rem;
+    overflow: hidden; /*패딩값은 치지 않음 */
 }
 
 header{
@@ -128,6 +129,7 @@ section{
     display: flex; /* 내부의 4개의 요소들을 수평으로 나타내기 위함 */
     justify-content: space-around; /*아이템들의 둘레에 균일한 간격 */
     align-items: center;
+    padding: 1rem 0; /*밑에 shadow가 보이게 하기 위해 */
 }
 
 .skill-container .skill{
@@ -140,6 +142,11 @@ section{
     padding: 0.5rem 1rem;
     margin : 0 1rem;
     box-shadow: 10px 10px 10px -5px rgba(25,42,70,0.2);
+    transition: 0.4s; /* 마우스올리면 이벤트 */
+}
+
+.skill:hover{
+    transform:translate(0,-5px)
 }
 
 .skill-container .skill .skill-icon {
@@ -216,19 +223,107 @@ section{
 
 .class-list{
     display: flex;
-    list-style: none; /* li앞의 글머리(점) 없애기 */
+    list-style: none; /* li앞의 글머리(점) 없애기 (패딩이나 마진이 없어지진 않음)*/
+    padding: 1rem 0;
+    margin: 0;
+    overflow: hidden; /*inner 히든으로는 패딩이 안없어지기 때문 */
 }
 
-.class-list .class-card{
+.class-card{
     width: 240px; /*고정*/
     box-shadow: 10px 10px 10px -5px rgba(25,42,70,0.2);
     border-radius: 8px;
     margin: 0 10px;
+    transition: 0.4s;
+    flex-shrink: 0; /*인터넷 익스플로어에서 크기를 줄이는 것을 방지 */
 }
 
-.class-list .class-card .class-image{
+.class-card:hover{
+    box-shadow: 10px 10px 10px 0px rgba(25,42,70,0.2);
+    transform: translate(0, -5px);
+}
+
+.class-image{
+    max-width: 240px; /* 그냥 width라 써도 되지만 인터넷 익스플로어에서 이미지가 넘치는 것 방지 */
+    border-radius: 8px 8px 0 0; /* 아래는 사각형모양 */
+    /*heigth : 150px -> 인터넷에서 요즘 너비에 따른 높이 비율이 잘 되어 있으므로 설정안해도 됨 */
+}
+
+.class-container{
     width: 100%;
-    border-radius: 8px 8px 0 0;
+    padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.class-skill{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.class-type{
+    font-size: 0.9rem;
+    color: #949393;
+}
+
+.class-format{
+    font-size: 0.9rem;
+    color : #fff;
+    background-color: #0d47a1;
+    padding : 0.2reml
+}
+
+.class-desc{
+    width: 100%;
+    margin-top : 1rem;
+}
+
+.class-title{
+    font-weight: bold;
+    color: #545e6f;
+    /*말줄임표 하기 위해서는 width설정과 자동줄바꿈 방지설정과 오버플로우 히든 설정이 필요*/
+    width : 100%;
+    white-space: nowrap; /*nowrap : 스테이스와 탭, 줄바꿈 병합(한개의 공백으로 바꿈), 자동 줄바꿈 없음 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+
+}
+
+.class-detail{
+    font-size: 0.9rem;
+    color: #545e6f;
+    line-height: 1.5rem;
+}
+
+.roadmap-desc{
+    display: visible;
+}
+
+li a:hover{
+    cursor: pointer;
+}
+
+footer{
+    border-top: 1px solid #e4e4e4;
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    margin: 1rem 0;
+}
+
+.footer-message{
+    font-weight: bold;
+    color: #545e6f;
+    margin: 0.3rem 0.5rem;
+}
+
+.footer-contact{
+    color: #545e6f;
+    margin: 0 0.5rem;
+}
+
+.footer-copyright{
+    color: #545e6f;
+    margin: 1rem 0.5rem;
 }
 
 /* width가 1200보다 커질 때 가운데로 정렬하기 위한 것*/
@@ -242,5 +337,8 @@ section{
 @media only screen and (max-width:980px){ 
     .skill-container{
         display: none ;
+    }
+    .roadmap-desc{
+        display: none;
     }
 }
