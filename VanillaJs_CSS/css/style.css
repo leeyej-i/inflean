@@ -221,12 +221,22 @@ section{
     color:#cfd8dc
 }
 
+.slide-prev-hover:hover {
+    transition: transform 0.5s;
+    transform: translateX(-2px);
+}
+
+.slide-next-hover:hover {
+    transition: transform 0.5s;
+    transform: translateX(2px);
+}
+
 .class-list{
     display: flex;
     list-style: none; /* li앞의 글머리(점) 없애기 (패딩이나 마진이 없어지진 않음)*/
     padding: 1rem 0;
     margin: 0;
-    overflow: hidden; /*inner 히든으로는 패딩이 안없어지기 때문 */
+    overflow: none; /* hidden으로 설정하면 transform 시 이미지가 짤림 */
 }
 
 .class-card{
@@ -275,13 +285,18 @@ section{
 .class-desc{
     width: 100%;
     margin-top : 1rem;
+    color:#545e6f
+}
+
+.class-desc:hover{
+    color:#2186c4
 }
 
 .class-title{
     font-weight: bold;
-    color: #545e6f;
     /*말줄임표 하기 위해서는 width설정과 자동줄바꿈 방지설정과 오버플로우 히든 설정이 필요*/
     width : 100%;
+    color:inherit; /*상속 */
     white-space: nowrap; /*nowrap : 스테이스와 탭, 줄바꿈 병합(한개의 공백으로 바꿈), 자동 줄바꿈 없음 */
     overflow: hidden;
     text-overflow: ellipsis;
@@ -291,7 +306,6 @@ section{
 
 .class-detail{
     font-size: 0.9rem;
-    color: #545e6f;
     line-height: 1.5rem;
 }
 
@@ -324,6 +338,53 @@ footer{
 .footer-copyright{
     color: #545e6f;
     margin: 1rem 0.5rem;
+}
+
+#backtotop{
+    background-color: rgb(47,48,49);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 20px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition-property: background-color, opacity, visibility;
+    transition-duration: 0.3s, 0.5s, 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index:999;
+}
+
+/*아이콘 적용 방법
+ 1. ::after{ 요소뒤에 cotent 추가
+ 2. content : "폰트어썸 유니코드"를 넣고
+ 3. font-family : fontAwesome 이라고 넣으면 됨 */
+#backtotop::after{
+    content: "\f077";
+    font-family: FontAwesome;
+    font-size:1.5rem;
+    line-height: 40px;
+    color:#fff;
+}
+
+#backtotop.show:hover{
+    cursor: pointer;
+    background-color: #2186c4;
+}
+
+#backtotop.show{
+    opacity: 1;
+    visibility: visible;
+    background-color: rgb(47,48,49);
+}
+
+ul li img:hover {
+    cursor:grab; /* 인터넷익스플로어에선 안됨 */
+}
+
+ul li img:active {
+    cursor:grabbing; /* 인터넷익스플로어에선 안됨 */
 }
 
 /* width가 1200보다 커질 때 가운데로 정렬하기 위한 것*/
