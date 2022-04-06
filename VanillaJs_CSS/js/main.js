@@ -100,3 +100,82 @@ for (let i = 0; i < slidePrevList.length; i++){
     }
 }
 /*----------------------------------------------------------------------*/
+let touchStartX; // 마우스위치
+let currentClassList; 
+let currentImg;
+let currentActiveLi;
+let nowActiveLi;
+let mouseStart;
+
+function processTouchMove(event){
+    event.preventDefault();
+
+    let currentX = event.clientX || event.touches[0].screenX;
+    //움직여야 할 거리
+    nowActiveLi = Number(currentActiveLi) + (Number(currentX) - Number(touchStartX))
+    currentClassList.style.transition = 'transform 0s linear'; // 바로 움직이기
+    currentClassList.style.transform = 'translateX(' + String(nowActiveLi) + 'px)';
+
+}
+
+function processTouchStart(event){
+    mouseStart = true ;
+
+    event.preventDefault();
+    touchStartX = event.clientX || event.touches[0].screenX;
+    currentImg = event.target;
+    currentImg.addEventListener('mousemove', processTouchMove);
+    currentImg.addEventListener('mouseup', processTouchEnd);
+    currentImg.addEventListener('touchmove', processTouchMove);
+    currentImg.addEventListener('touchend', processTouchEnd);
+
+    currentClassList = currentImg.parentElement.parentElement;
+    currentActiveLi = currentClassList.getAttribute('data-position');
+
+}
+
+function processTouchEnd(event){
+    event.preventDefault();
+
+    // 드래그 한 상태에서 마우스 업인지 확인
+    if(mouseStart === true){
+        currentImg.removeEventListener('mousemove', processTouchMove);
+        currentImg.removeEventListener('mouseup', processTouchEnd);
+
+        currentImg.removeEventListener('touchmove', processTouchMove);
+        currentImg.removeEventListener('touchend', processTouchEnd);
+        
+        //범위를 벗어나면 처음으로 다시 돌아가게끔 이동
+        currentClassList.style.transition = 'transform 1s ease';
+        currentClassList.style.transform = 'translateX(0px)';
+        currentClassList.setAttribute('data-position', 0);
+
+        let eachSlidePrev = currentClassList.previousElementSibling.children[1].children[0];
+        let eachSlideNext = currentClassList.previousElementSibling.children[1].children[1];
+        let eachLiList = currentClassList.getElementsByTagName('li');
+        // classList의 li가 넘칠 떄
+        if (currentClassList.clientWidth < eachLiList.length * 260 ){
+            eachSlidePrev.style.color = '#2f3059';
+            eachSlidePrev.classList.add('slide-prev-hover');
+            eachSlidePrev.addEventListener('click', transformPrev);
+
+            eachSlideNext.style.color = '#cfd8dc';
+            eachSlideNext.classList.add('slide-next-hover');
+            eachSlideNext.addEventListener('click', transformPrev);
+        }
+    }
+    mouseStart = false
+}
+
+    
+
+// 특정 요소를 드래그하다가, 요소 밖에서 드래그를 끝낼 수 있으므로 window에 이벤트 걸기
+window.addEventListener('dragend', processTouchEnd);
+window.addEventListener('mouseup', processTouchEnd);
+
+const classImgLists= document.querySelectorAll('ul li img');
+for (let i = 0 ; i < classImgLists.length; i++){
+    classImgLists[i].addEventListener('mousedown', processTouchStart);
+    classImgLists[i].addEventListener('touchstart', processTouchStart);
+
+}

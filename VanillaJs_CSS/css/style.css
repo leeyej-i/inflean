@@ -109,18 +109,24 @@ section{
     padding-bottom: 100px;
 }
 
-.title-container .title {
+.title {
     font-size: 2rem;
     font-weight: bold;
     color : #fff;
     margin-bottom: 0.8rem;
 }
 
-.title-container .message {
+.message {
     font-size: 1.4rem;
     font-weight: normal;
     color : #fff;
     line-height: 2rem;
+}
+
+.news{
+    font-size : 1.2rem;
+    font-weight: bold;
+    color : #fff6ae
 }
 
 .skill-container{
@@ -212,7 +218,7 @@ section{
 .slide-prev{
     font-size: 2rem;
     cursor: pointer;
-    color: rgb(47,48,89))
+    color: rgb(47,48,89);
 } 
 
 .slide-next{
@@ -394,12 +400,44 @@ ul li img:active {
     }
 }
 
-/* width가 1200보다 커질 때 안보이게 하기*/
+/* width가 980보다 작아질 때 안보이게 하기*/
 @media only screen and (max-width:980px){ 
     .skill-container{
         display: none ;
     }
     .roadmap-desc{
         display: none;
+    }
+}
+
+/* 중간 사이즈 대비*/
+@media only screen and (max-width:768px){ 
+    .class-skill{
+        display: none;
+    }
+    .class-desc{
+        margin-top: 0.3rem;
+    }
+}
+
+/* 모바일대비*/
+@media only screen and (max-width:480px){ 
+    .title{
+        font-size: 1.6rem;
+        font-weight: bold;
+        color : #fff;
+        margin-bottom: 0.8rem;
+    }
+    .message{
+        font-size: 1.4rem;
+        font-weight: normal;
+        color : #fff;
+        margin-bottom: 2rem;
+    }
+    .class-skill{
+        display: none;
+    }
+    .class-desc{
+        margin-top: 0.3rem;
     }
 }
