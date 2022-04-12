@@ -15,7 +15,3 @@ body {
     flex-wrap: wrap;
     gap: 15px;
 }
-
-.favorites img {
-    width: 150px;
-}

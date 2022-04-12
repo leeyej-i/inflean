@@ -15,49 +15,135 @@
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <script type="text/babel">
+
+    const jsonLocalStorage = {
+      setItem: (key, value) => {
+        localStorage.setItem(key, JSON.stringify(value));
+      },
+      getItem: (key) => {
+        return JSON.parse(localStorage.getItem(key));
+      },
+    };
+
     console.log("야옹");
 
-    const title = <h1>1번째 고양이 가라사대</h1>
-
-    const form = (
-      <form>
-        <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
-        <button type="submit">생성</button>
-      </form>
+    // {} 괄호 없이 ()로 화살표 함수 표현 시 return 생략 가능
+    // props는 받아오는 것이고 props.children은 리액트 태그 사이의 값
+    const Tilte = props => (
+      <h1>{props.children}</h1>
     );
 
-    const catItem = (
-      <li>
-        <img src="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
-      </li>
-    );
+    const Form = ({ updataMainCat }) => {
+      // 한글인지 검사
+      const includesHangul = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);
+      const [value, setValue] = React.useState('');
+      const [errorMessage, setErrorMessage] = React.useState('');
 
-    const favorites = (
-      <ul class="favorites">
-        {catItem}
-        {catItem}
-        {catItem}
-      </ul>
-    );
-    const mainCard = (
-      <div class="main-card">
-        <img src="https://cataas.com/cat/60b73094e04e18001194a309/says/react" alt="고양이" width="400" />
-        <button>♥</button>
-      </div>
-    );
+      function handleInputChange(e) {
+        const userValue = e.target.value;
+        setErrorMessage("");
+        if (includesHangul(userValue)) {
+          setErrorMessage("한글은 입력할 수 없습니다.");
+        }
 
-    const app = (
-      <div>
-        {title}
-        {form}
-        {mainCard}
-        {favorites}
-      </div>
-    );
+        setValue(userValue.toUpperCase());
+      }
+
+      function handleFormSubmit(e) {
+        // 폼이 전송될 때 새로 고침되는 기본설정을 막기 위한 것
+        e.preventDefault();
+        setErrorMessage("");
+        if (value === "") {
+          setErrorMessage("빈 값으로 만들 수 없습니다.");
+          return;
+        }
+        updataMainCat();
+
+      }
+      return (
+        < form onSubmit={handleFormSubmit} >
+          <input
+            type="text" name="name"
+            placeholder="영어 대사를 입력해주세요"
+            value={value}
+            onChange={handleInputChange} />
+          <button type="submit">생성</button>
+          <p style={{ color: "red" }}>{errorMessage}</p>
+        </form >
+      );
+    }
+
+    function CatItem(props) {
+      return (
+        <li>
+          <img src={props.img} width="150" />
+        </li>
+      );
+    }
+
+    function Favorites({ favorites }) {
+      const cats = favorites
+
+      return (
+        <ul className="favorites">
+          {cats.map(cat => <CatItem img={cat} key={cat} />)}
+        </ul>
+      );
+    }
+
+
+    // props.img은 {img}로 표현할 수 있음
+    const MainCard = ({ img, onHeartClick }) => {
+      return (
+        <div className="main-card">
+          <img src={img} alt="고양이" width="400" />
+          <button onClick={onHeartClick}>♥</button>
+        </div>
+      );
+    }
+
+    /* useState를 통해 상태를 바꿔줄 수 있음
+      countertState는 2개로 나뉨/ useState("초기값")
+      1. counter -> couterState[0] / 카운터 그 자체
+      2. counterState -> counterState[1] / 카운터를 조절하는 것
+    */
+    // Tilte 리액트 컴포넌트는 props.children을 통해 사이의 값을 받을 수 있음
+    // MainCard 리액트 컴포넌트는 props.img를 통해 사이의 값을 받을 수 있음
+    const App = () => {
+      const CAT1 = "img/cat1.jpg";
+      const CAT2 = "img/cat2.jpg";
+      const CAT3 = "img/cat3.jpg";
+      const [counter, setCounter] = React.useState(jsonLocalStorage.getItem("counter"));
+      const [mainCat, setMainCat] = React.useState(CAT1);
+      const [favorites, setFavorites] = React.useState(jsonLocalStorage.getItem("favorites") || []);
+
+      function updataMainCat() {
+        const nextCounter = counter + 1;
+        setCounter(nextCounter);
+        setMainCat(CAT2);
+        jsonLocalStorage.setItem("counter", nextCounter);
+      }
+
+      function handleHeartClick() {
+        const nextFavorites = [...favorites, mainCat];
+        setFavorites(nextFavorites);
+        jsonLocalStorage.setItem('favorites', nextFavorites);
+      }
+
+      return (
+        <div>
+          <Tilte>{counter}번째 고양이 가라사대</Tilte>
+          <Form updataMainCat={updataMainCat} />
+          <MainCard img={mainCat} onHeartClick={handleHeartClick} />
+          <Favorites favorites={favorites} />
+        </div>
+      );
+    }
 
     const area = document.querySelector('#app');
 
-    ReactDOM.render(app, area);
+    //render시킬 것이 여러 개면 다 묶는 app을 새로 만들어 하나만 render해주기
+    ReactDOM.render(<App />, area);
   </script>
 </body>
 
