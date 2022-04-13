@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import React from 'react';
 import './App.css';
+import './style.css';
 
 const jsonLocalStorage = {
   setItem: (key, value) => {
@@ -37,7 +38,7 @@ const Form = ({ updataMainCat }) => {
 
   function handleInputChange(e) {
     const userValue = e.target.value;
-    setErrorMessage("");
+    setErrorMessage(""); //초기화 무조건
     if (includesHangul(userValue)) {
       setErrorMessage("한글은 입력할 수 없습니다.");
     }
@@ -92,11 +93,12 @@ function Favorites({ favorites }) {
 
 
 // props.img은 {img}로 표현할 수 있음
-const MainCard = ({ img, onHeartClick, alreadyFavorite }) => {
+const MainCard = ({ img, text, onHeartClick, alreadyFavorite }) => {
   const heartIcon = alreadyFavorite ? "💖" : "🤍";
   return (
     <div className="main-card">
       <img src={img} alt="고양이" width="400" />
+      <div className="text">{text}</div>
       <button onClick={onHeartClick}>{heartIcon}</button>
     </div>
   );
@@ -113,24 +115,29 @@ const App = () => {
   const CAT1 = "img/cat1.jpg";
   const CAT2 = "img/cat2.jpg";
   const CAT3 = "img/cat3.jpg";
+  const CAT4 = "img/cat4.jpg";
+  const CATS = [CAT1, CAT2, CAT3, CAT4];
+  const [text, setText] = React.useState("")
   const [counter, setCounter] = React.useState(() => {
     return jsonLocalStorage.getItem("counter");
   });
-  const [mainCat, setMainCat] = React.useState(CAT1);
+  const [index, setIndex] = React.useState(0);
+  const [mainCat, setMainCat] = React.useState(CATS[index]);
   const [favorites, setFavorites] = React.useState(() => {
     return jsonLocalStorage.getItem("favorites") || []
   });
 
   async function setInitialCat() {
-    const newCat = await fetchCat('First cat');
-    setMainCat(newCat);
+    // const newCat = await fetchCat('First cat');
+    setMainCat(CATS[index]);
+    setText("first")
   }
 
   // 업데이트 될 때마다 실행되는 것이지만, 뒤에 {} 중괄호를 통해 무엇이 바뀔 때마다 실행되는지 결정가능
   // 빈배열의 경우는 맨 처음에만 실행됨
-  /* React.useEffect(() => {
+  React.useEffect(() => {
     setInitialCat();
-  }, {}) */
+  }, {})
 
   async function updataMainCat(value) {
     // const newCat = await fetchCat(value);
@@ -141,7 +148,13 @@ const App = () => {
       return nextCounter
     });
     //setMainCat(newCat);
-    setMainCat(CAT1)
+    let nextIndex = index + 1;
+    if (nextIndex === CATS.length) {
+      nextIndex = 0
+    }
+    setIndex(nextIndex)
+    setMainCat(CATS[index])
+    setText(value)
 
   }
 
@@ -159,7 +172,7 @@ const App = () => {
     <div>
       <Tilte>{counterTitle}고양이 가라사대</Tilte>
       <Form updataMainCat={updataMainCat} />
-      <MainCard img={mainCat} onHeartClick={handleHeartClick} alreadyFavorite={alreadyFavorite} />
+      <MainCard img={mainCat} text={text} onHeartClick={handleHeartClick} alreadyFavorite={alreadyFavorite} />
       <Favorites favorites={favorites} />
     </div>
   );
