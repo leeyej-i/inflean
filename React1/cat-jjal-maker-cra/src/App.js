@@ -98,7 +98,7 @@ const MainCard = ({ img, text, onHeartClick, alreadyFavorite }) => {
   return (
     <div className="main-card">
       <img src={img} alt="고양이" width="400" />
-      <div className="text">{text}</div>
+
       <button onClick={onHeartClick}>{heartIcon}</button>
     </div>
   );
@@ -128,9 +128,9 @@ const App = () => {
   });
 
   async function setInitialCat() {
-    // const newCat = await fetchCat('First cat');
-    setMainCat(CATS[index]);
-    setText("first")
+    const newCat = await fetchCat('First cat');
+    setMainCat(newCat);
+    //setText("first")
   }
 
   // 업데이트 될 때마다 실행되는 것이지만, 뒤에 {} 중괄호를 통해 무엇이 바뀔 때마다 실행되는지 결정가능
@@ -140,21 +140,22 @@ const App = () => {
   }, {})
 
   async function updataMainCat(value) {
-    // const newCat = await fetchCat(value);
+    const newCat = await fetchCat(value);
 
     setCounter((prev) => {
       const nextCounter = prev + 1;
       jsonLocalStorage.setItem("counter", nextCounter);
       return nextCounter
     });
-    //setMainCat(newCat);
-    let nextIndex = index + 1;
+    setMainCat(newCat);
+    /*let nextIndex = index + 1;
     if (nextIndex === CATS.length) {
       nextIndex = 0
     }
     setIndex(nextIndex)
     setMainCat(CATS[index])
     setText(value)
+    */
 
   }
 
