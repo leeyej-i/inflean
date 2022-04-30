@@ -1,0 +1,443 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0 auto;
+    color:#3f464d;
+    font-family: "Spoqa Han Sans Neo", "Sans-serif";
+}
+
+a{
+    all : unset;
+}
+
+a:link{
+    text-decoration: none;
+    color : #3f464d;
+}
+
+a:visited{
+    text-decoration: none;
+    color:#3f464d
+}
+
+a:active{
+    text-decoration: none;
+    color:#3f464d
+}
+
+a:hover{
+    text-decoration: none;
+    color:#3f464d
+}
+
+.inner{
+    width:100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    overflow: hidden; /*패딩값은 치지 않음 */
+}
+
+header{
+    width: 100%;
+    height: 60px;
+    background-color: #ffffff;
+    position: fixed; /* 고정 */
+
+    /*상단에 계속 떠있게 하기 위함(fixed의 위치 지정)*/
+    top:0;
+    left: 0;
+    z-index: 1000; 
+}
+
+.head-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} 
+
+.head-container .head-brand{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.head-container .head-brand a:hover{
+    color: #2186c4;
+    cursor: pointer;
+}
+
+.head-container .head-blog{
+    font-weight: bold;
+    font-size: 1.2rem;   
+}
+
+.head-container .head-blog a:hover{
+    color: #2186c4;
+    cursor: pointer;
+}
+
+section{
+    width: 100%;
+    background-color: #fff;
+    position: relative; /*absolute 요소가 있을 때 relative한 section을 기준으로 하기 때문에 default로 설정해줌*/
+}
+
+.main{
+    height: 360px;
+    background-image: url("https://www.fun-coding.org/assets_lms/images/photodune-4161018-group-of-students-m.jpg");
+    background-size: cover; /*지정한 요소를 다 덮도록 배경이미지 확대 또는 축소 -> 반복 없앰*/
+    background-position: center 10%; /*위로 조금 올리기 */
+    background-repeat: no-repeat; /*cover라서 할필요는 없음 */
+    z-index: 1;
+}
+
+.main-container{
+    width: 100%; 
+    height: 100%;
+    background-color: rgb(47,48,89);
+    opacity: 0.8; /*투명도*/
+    z-index: 2; /*main 클래스보다 위에 */
+    margin-top: 60px; /*fixed로 설정되어있는 header부분을 마진으로 처리하여 여백주기*/
+}
+
+.title-container{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color : #fff;
+    margin-bottom: 0.8rem;
+}
+
+.message {
+    font-size: 1.4rem;
+    font-weight: normal;
+    color : #fff;
+    line-height: 2rem;
+}
+
+.news{
+    font-size : 1.2rem;
+    font-weight: bold;
+    color : #fff6ae
+}
+
+.skill-container{
+    width: 100%;
+    height: 100%;
+    display: flex; /* 내부의 4개의 요소들을 수평으로 나타내기 위함 */
+    justify-content: space-around; /*아이템들의 둘레에 균일한 간격 */
+    align-items: center;
+    padding: 1rem 0; /*밑에 shadow가 보이게 하기 위해 */
+}
+
+.skill-container .skill{
+    width: 25%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 9px; /*꼭짓점 둥글게 */
+    padding: 0.5rem 1rem;
+    margin : 0 1rem;
+    box-shadow: 10px 10px 10px -5px rgba(25,42,70,0.2);
+    transition: 0.4s; /* 마우스올리면 이벤트 */
+}
+
+.skill:hover{
+    transform:translate(0,-5px)
+}
+
+.skill-container .skill .skill-icon {
+    font-size : 2.5rem;
+    margin : 0 10px;
+}
+
+.skill-container .skill .skill-title{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.skill-container .skill .skill-title .skill-name{
+    font-weight: bold;
+    color:#545e6f;
+    margin-bottom: 0.2rem;
+}
+
+.skill-container .skill .skill-title .skill-usage{
+    font-size : 0.9rem;
+    color:#545e6f;
+}
+
+.python-style{
+    color:#2186c4;
+}
+
+.analysis-style {
+    color: #ff8066;
+}
+  
+.ai-style {
+    color: #f7df1e;
+}
+  
+.vue-style {
+    color: #2e7d32;
+}
+
+.roadmap-container {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+
+.roadmap-container .roadmap-title-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝 */
+    align-items: center;
+}
+
+.roadmap-container .roadmap-title-container .roadmap-title{
+    font-size : 1.3rem;
+    font-weight: bold;
+}
+
+.roadmap-container .roadmap-title-container .arrow-container{
+    display: flex;
+}
+
+.slide-prev{
+    font-size: 2rem;
+    cursor: pointer;
+    color: rgb(47,48,89);
+} 
+
+.slide-next{
+    font-size: 2rem;
+    cursor: pointer;
+    color:#cfd8dc
+}
+
+.slide-prev-hover:hover {
+    transition: transform 0.5s;
+    transform: translateX(-2px);
+}
+
+.slide-next-hover:hover {
+    transition: transform 0.5s;
+    transform: translateX(2px);
+}
+
+.class-list{
+    display: flex;
+    list-style: none; /* li앞의 글머리(점) 없애기 (패딩이나 마진이 없어지진 않음)*/
+    padding: 1rem 0;
+    margin: 0;
+    overflow: none; /* hidden으로 설정하면 transform 시 이미지가 짤림 */
+}
+
+.class-card{
+    width: 240px; /*고정*/
+    box-shadow: 10px 10px 10px -5px rgba(25,42,70,0.2);
+    border-radius: 8px;
+    margin: 0 10px;
+    transition: 0.4s;
+    flex-shrink: 0; /*인터넷 익스플로어에서 크기를 줄이는 것을 방지 */
+}
+
+.class-card:hover{
+    box-shadow: 10px 10px 10px 0px rgba(25,42,70,0.2);
+    transform: translate(0, -5px);
+}
+
+.class-image{
+    max-width: 240px; /* 그냥 width라 써도 되지만 인터넷 익스플로어에서 이미지가 넘치는 것 방지 */
+    border-radius: 8px 8px 0 0; /* 아래는 사각형모양 */
+    /*heigth : 150px -> 인터넷에서 요즘 너비에 따른 높이 비율이 잘 되어 있으므로 설정안해도 됨 */
+}
+
+.class-container{
+    width: 100%;
+    padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.class-skill{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.class-type{
+    font-size: 0.9rem;
+    color: #949393;
+}
+
+.class-format{
+    font-size: 0.9rem;
+    color : #fff;
+    background-color: #0d47a1;
+    padding : 0.2reml
+}
+
+.class-desc{
+    width: 100%;
+    margin-top : 1rem;
+    color:#545e6f
+}
+
+.class-desc:hover{
+    color:#2186c4
+}
+
+.class-title{
+    font-weight: bold;
+    /*말줄임표 하기 위해서는 width설정과 자동줄바꿈 방지설정과 오버플로우 히든 설정이 필요*/
+    width : 100%;
+    color:inherit; /*상속 */
+    white-space: nowrap; /*nowrap : 스테이스와 탭, 줄바꿈 병합(한개의 공백으로 바꿈), 자동 줄바꿈 없음 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+
+}
+
+.class-detail{
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+}
+
+.roadmap-desc{
+    display: visible;
+}
+
+li a:hover{
+    cursor: pointer;
+}
+
+footer{
+    border-top: 1px solid #e4e4e4;
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    margin: 1rem 0;
+}
+
+.footer-message{
+    font-weight: bold;
+    color: #545e6f;
+    margin: 0.3rem 0.5rem;
+}
+
+.footer-contact{
+    color: #545e6f;
+    margin: 0 0.5rem;
+}
+
+.footer-copyright{
+    color: #545e6f;
+    margin: 1rem 0.5rem;
+}
+
+#backtotop{
+    background-color: rgb(47,48,49);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 20px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition-property: background-color, opacity, visibility;
+    transition-duration: 0.3s, 0.5s, 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index:999;
+}
+
+/*아이콘 적용 방법
+ 1. ::after{ 요소뒤에 cotent 추가
+ 2. content : "폰트어썸 유니코드"를 넣고
+ 3. font-family : fontAwesome 이라고 넣으면 됨 */
+#backtotop::after{
+    content: "\f077";
+    font-family: FontAwesome;
+    font-size:1.5rem;
+    line-height: 40px;
+    color:#fff;
+}
+
+#backtotop.show:hover{
+    cursor: pointer;
+    background-color: #2186c4;
+}
+
+#backtotop.show{
+    opacity: 1;
+    visibility: visible;
+    background-color: rgb(47,48,49);
+}
+
+ul li img:hover {
+    cursor:grab; /* 인터넷익스플로어에선 안됨 */
+}
+
+ul li img:active {
+    cursor:grabbing; /* 인터넷익스플로어에선 안됨 */
+}
+
+/* width가 1200보다 커질 때 가운데로 정렬하기 위한 것*/
+@media only screen and (min-width:1200px){ 
+    .inner{
+        max-width: 1200px;
+    }
+}
+
+/* width가 980보다 작아질 때 안보이게 하기*/
+@media only screen and (max-width:980px){ 
+    .skill-container{
+        display: none ;
+    }
+    .roadmap-desc{
+        display: none;
+    }
+}
+
+/* 중간 사이즈 대비*/
+@media only screen and (max-width:768px){ 
+    .class-skill{
+        display: none;
+    }
+    .class-desc{
+        margin-top: 0.3rem;
+    }
+}
+
+/* 모바일대비*/
+@media only screen and (max-width:480px){ 
+    .title{
+        font-size: 1.6rem;
+        font-weight: bold;
+        color : #fff;
+        margin-bottom: 0.8rem;
+    }
+    .message{
+        font-size: 1.4rem;
+        font-weight: normal;
+        color : #fff;
+        margin-bottom: 2rem;
+    }
+    .class-skill{
+        display: none;
+    }
+    .class-desc{
+        margin-top: 0.3rem;
+    }
+}
