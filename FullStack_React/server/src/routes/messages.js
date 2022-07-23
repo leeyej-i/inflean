@@ -7,40 +7,52 @@ const messagesRoute = [
     { // Get
         method: 'get',
         route: '/messages',
-        handler: (req, res) => {
+        handler: ({ query: { cursor = '' } }, res) => {
             const msgs = getMsgs()
-            res.send(msgs)
+            const fromIndex = msgs.findIndex(msg => msg.id === cursor) + 1
+            res.send(msgs.slice(fromIndex, fromIndex + 15))
         }
     },
-    { // Get
+    {
+        // GET MESSAGE
         method: 'get',
         route: '/messages/:id',
         handler: ({ params: { id } }, res) => {
             try {
                 const msgs = getMsgs()
+                console.log(id);
+                console.log(msgs[id]);
                 const msg = msgs.find(m => m.id === id)
-                if (!msg) throw Error('not found')
+                console.log("msg는", msg);
+                if (!msg) {
+                    console.log("우잉");
+                    throw Error('not found')
+                }
                 res.send(msg)
             } catch (err) {
                 res.status(404).send({ error: err })
             }
-
         },
     },
     { // Create
         method: 'post',
         route: '/messages',
         handler: ({ body }, res) => {
-            const msgs = getMsgs()
-            const newMsg = {
-                id: v4(),
-                text: body.text,
-                userid: body.userid,
-                timestamp: Date.now()
+            try {
+                if (!body.userId) throw Error('no userId')
+                const msgs = getMsgs()
+                const newMsg = {
+                    id: v4(),
+                    text: body.text,
+                    userId: body.userId,
+                    timestamp: Date.now()
+                }
+                msgs.unshift(newMsg)
+                setMsgs(msgs)
+                res.send(newMsg)
+            } catch (err) {
+                res.status(500).send({ error: err })
             }
-            msgs.unshift(newMsg)
-            setMsgs(msgs)
-            res.send(newMsg)
         }
     },
     { // Update
@@ -63,10 +75,10 @@ const messagesRoute = [
 
         },
     },
-    { // Delete
+    { // Delete 클라이언트에서는 params로 userId를 보내줬으나 서버에서는 query로 받음
         method: 'delete',
         route: '/messages/:id',
-        handler: ({ body, params: { id } }, res) => {
+        handler: ({ body, params: { id }, query: { userId } }, res) => {
             try {
                 const msgs = getMsgs()
                 const targetIndex = msgs.findIndex(msg => msg.id === id)
