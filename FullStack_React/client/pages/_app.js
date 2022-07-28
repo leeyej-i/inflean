@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate, hydrate } from 'react-query/hydration'
 import './index.scss'
 
 const App = ({ Component, pageProps }) => {
@@ -18,7 +19,9 @@ const App = ({ Component, pageProps }) => {
 
     return (
         <QueryClientProvider client={getClient()}>
-            <Component {...pageProps} />
+            <Hydrate state={pageProps.dehydrateState}>
+                <Component {...pageProps} />
+            </Hydrate>
         </QueryClientProvider>
     )
 }

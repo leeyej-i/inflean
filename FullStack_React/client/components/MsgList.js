@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query'
+import { useQueryClient, useMutation, useQuery } from 'react-query'
 import MsgItem from './MsgItem'
 import MsgInput from './MsgInput'
 import { QueryKeys, fetcher } from '../queryClient'
@@ -26,6 +26,7 @@ const MsgList = ({ smsgs, users }) => {
                 }
             })
         },
+
     })
 
     const { mutate: onUpdate } = useMutation(({ text, id }) => fetcher(UPDATE_MESSAGE, { text, id, userId }), {
@@ -85,7 +86,7 @@ const MsgList = ({ smsgs, users }) => {
                         startEdit={() => setEditingId(x.id)}
                         isEditing={editingId === x.id}
                         myId={userId}
-                        user={users.find(user => x.userId === user.id)}
+                        user={users.find(y => x.userId === y.id)}
                     />
                 ))}
             </ul>
