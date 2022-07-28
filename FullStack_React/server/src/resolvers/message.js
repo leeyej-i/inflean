@@ -5,13 +5,13 @@ const setMsgs = (data) => writeDB('messages', data)
 //obj : parent 객체 / args : 쿼리에 필요한 필드에 제공되는 인수 / context : 로그인한 사용자 정보
 const messageResolver = {
     Query: {
-        messages: (parent, args, { db }) => {
-            // console.log({ parent, args, context })
-            return db.messages
+        messages: (parent, { cursor = '' }, { db }) => {
+            const fromIndex = db.messages.findIndex(msg => msg.id === cursor) + 1
+            return db.messages?.slice(fromIndex, fromIndex + 15) || []
         },
         message: (parent, { id = '' }, { db }) => {
             return db.messages.find(msg => msg.id === id)
-        }
+        },
     },
 
     Mutation: {
@@ -45,6 +45,11 @@ const messageResolver = {
             setMsgs(db.messages)
             return id
         },
+
+
+    },
+    Message: {
+        user: (msg, args, { db }) => db.users[msg.userId],
     }
 }
 
